@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">FoodFusion</string>
+    <string name="app_logo">App logo</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="phone_logo">phone logo</string>
+    <string name="login_button">Login</string>
+    <string name="no_account">Don’t have an account?</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="headline_dashboard">What do you want to eat?</string>
+    <string name="food_image">Makanan</string>
+    <string name="shop_name">Warung Sambal Bakar</string>
+    <string name="shop_time_open">Buka 8:00 - 20:00</string>
+    <string name="serve_time">20 mins</string>
+    <string name="greetings">Hello, Nama</string>
+    <string name="address">Alamat</string>
+    <string name="complete_address">Gedung Asrama 5, No Kamar 20</string>
+    <string name="dropdown_button">dropdown_button</string>
+    <string name="search_icon">search_ico</string>
+    <string name="search_placeholder">What would you like to eat?</string>
+    <string name="signin">Masuk</string>
+    <string name="back_button">Kembali</string>
+
+    <string name="bottom_app_beranda">Beranda</string>
+    <string name="bottom_app_favorit">Favorit</string>
+
+</resources>
