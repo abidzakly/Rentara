@@ -9,7 +9,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.vlab2024.rentara"
+        applicationId = "org.d3if3139.rentara"
         minSdk = 23
         targetSdk = 34
         versionCode = 1
@@ -67,6 +67,8 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.datastore:datastore-preferences-android:1.1.0")
+    implementation (libs.androidx.material.icons.extended)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

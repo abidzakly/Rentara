@@ -27,22 +27,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.vlab2024.foodfusion.R
-import org.d3if3139.mobpro1.navigation.Screen
+import org.d3if3139.rentara.navigation.Screen
+import org.d3if3139.rentara.R
 import org.d3if3139.rentara.ui.theme.DarkBlueDarker
 import org.d3if3139.rentara.ui.theme.GrayIco
 
 @Composable
-fun BottomNav(currentRoute: String, navController: NavHostController) {
+fun BottomNav(currentRoute: String, navController: NavHostController, id: String) {
     BottomAppBar(
         modifier = Modifier
-            .height(83.dp)
+            .height(72.dp)
             .shadow(elevation = 5.dp, shape = RectangleShape),
         containerColor = Color.White
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             BottomNavButton(
                 icon = R.drawable.baseline_home_filled_28,
@@ -50,6 +50,24 @@ fun BottomNav(currentRoute: String, navController: NavHostController) {
                 isSelected = currentRoute == Screen.Dashboard.route
             ) {
                 navController.navigate(Screen.Dashboard.route) {
+                   popUpTo(Screen.Dashboard.route)
+                }
+            }
+            BottomNavButton(
+                icon = R.drawable.baseline_favorite_28,
+                title = R.string.bottom_app_favorit,
+                isSelected = currentRoute == Screen.Favorite.route
+            ) {
+                navController.navigate(Screen.Favorite.route) {
+                    popUpTo(Screen.Dashboard.route)
+                }
+            }
+            BottomNavButton(
+                icon = R.drawable.baseline_account_circle,
+                title = R.string.bottom_app_profile,
+                isSelected = currentRoute == Screen.Profile.route
+            ) {
+                navController.navigate(Screen.Profile.route) {
                     popUpTo(Screen.Login.route)
                 }
             }
@@ -62,9 +80,8 @@ fun BottomNavButton(icon: Int, title: Int, isSelected: Boolean, onClick: () -> U
     Button(
         onClick = { onClick() },
         modifier = Modifier
-            .width(108.dp)
-            .fillMaxHeight()
-            .fillMaxWidth(),
+            .width(98.dp)
+            .fillMaxHeight(),
         shape = RectangleShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent,
@@ -80,14 +97,14 @@ fun BottomNavButton(icon: Int, title: Int, isSelected: Boolean, onClick: () -> U
         ) {
             Icon(
                 painter = painterResource(icon),
-                contentDescription = "Nilai",
+                contentDescription = "Favorit",
                 tint = if (isSelected) DarkBlueDarker else GrayIco
             )
             Text(
                 text = stringResource(title),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                fontSize = 14.sp
+                fontSize = 12.sp
             )
         }
     }
@@ -96,5 +113,5 @@ fun BottomNavButton(icon: Int, title: Int, isSelected: Boolean, onClick: () -> U
 @Preview
 @Composable
 private fun BottomNavPrev() {
-    BottomNav(currentRoute = Screen.Dashboard.route, navController = rememberNavController())
+    BottomNav(currentRoute = Screen.Dashboard.route, navController = rememberNavController(), "")
 }

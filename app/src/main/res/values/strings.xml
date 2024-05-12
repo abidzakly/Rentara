@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">FoodFusion</string>
+    <string name="app_name">Rentara</string>
     <string name="app_logo">App logo</string>
     <string name="phone_number">Phone Number</string>
     <string name="phone_logo">phone logo</string>
-    <string name="login_button">Login</string>
+    <string name="fullname">Fullname</string>
+    <string name="password">Password</string>
     <string name="no_account">Don’t have an account?</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="headline_dashboard">What do you want to eat?</string>
@@ -14,13 +15,34 @@
     <string name="greetings">Hello, Nama</string>
     <string name="address">Alamat</string>
     <string name="complete_address">Gedung Asrama 5, No Kamar 20</string>
+
+
+    <string name="list_kosong">List is Empty.</string>
     <string name="dropdown_button">dropdown_button</string>
     <string name="search_icon">search_ico</string>
     <string name="search_placeholder">What would you like to eat?</string>
     <string name="signin">Masuk</string>
     <string name="back_button">Kembali</string>
-
+    <string name="login_button">Login</string>
+    <string name="login_error">Phone Number is incorrect or does not exist!</string>
+    <string name="delete_account_error">Terjadi Kesalahan</string>
+    <string name="register_button">Daftar</string>
+    <string name="register_error">Phone Number is Already Used!</string>
+    <string name="profile_edit_button">Ubah</string>
+    <string name="logout_button">Keluar</string>
+    <string name="delete_account">Hapus Akun</string>
+    <string name="post_button">Post</string>
+    <string name="grid_button">grid</string>
+    <string name="list_button">list</string>
     <string name="bottom_app_beranda">Beranda</string>
     <string name="bottom_app_favorit">Favorit</string>
+    <string name="bottom_app_profile">Profil</string>
+
+
+    <string name="lainnya">Opsi lainnya</string>
+    <string name="hapus">Hapus Catatan</string>
+    <string name="pesan_hapus">Hapus Catatan ini?</string>
+    <string name="tombol_hapus">Hapus</string>
+    <string name="tombol_batal">Batal</string>
 
 </resources>
