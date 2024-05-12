@@ -42,7 +42,7 @@
     <string name="lainnya">Opsi lainnya</string>
     <string name="hapus">Hapus Catatan</string>
     <string name="pesan_hapus">Hapus Catatan ini?</string>
-    <string name="tombol_hapus">Hapus</string>
-    <string name="tombol_batal">Batal</string>
+    <string name="tombol_hapus">Yes</string>
+    <string name="tombol_batal">No</string>
 
 </resources>

@@ -19,7 +19,7 @@ fun PostScreen(navController: NavHostController, id: Long? = null) {
 @Composable
 private fun ScreenContent(modifier: Modifier, navController: NavHostController) {
     Column {
-
+        
     }
 }
 

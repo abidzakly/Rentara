@@ -11,12 +11,13 @@ import org.d3if3139.rentara.R
 @Composable
 fun DisplayAlertDialog(
     openDialog: Boolean,
+    text: String,
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit
 ) {
     if (openDialog) {
         AlertDialog(
-            text = { Text(text = stringResource(R.string.pesan_hapus)) },
+            text = { Text(text = text) },
             confirmButton = {
                 TextButton(
                     onClick = { onConfirmation() }) {
@@ -30,13 +31,5 @@ fun DisplayAlertDialog(
                 }
             },
             onDismissRequest = { onDismissRequest() })
-    }
-}
-
-@Preview
-@Composable
-private fun DialogPreview() {
-    DisplayAlertDialog(openDialog = true, onDismissRequest = { /*TODO*/ }) {
-
     }
 }

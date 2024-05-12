@@ -1,7 +1,6 @@
 package org.d3if3139.rentara.ui.screen.profile
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,6 +45,7 @@ import org.d3if3139.rentara.database.RentaraDb
 import org.d3if3139.rentara.navigation.Screen
 import org.d3if3139.rentara.ui.component.BottomNav
 import org.d3if3139.rentara.ui.component.CustomTextField
+import org.d3if3139.rentara.ui.component.DisplayAlertDialog
 import org.d3if3139.rentara.ui.component.TopNav
 import org.d3if3139.rentara.ui.theme.RentaraPink
 import org.d3if3139.rentara.ui.theme.RentaraPinkDarker
@@ -71,6 +71,10 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
     var id by remember { mutableLongStateOf(-1L) }
     var fullname by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
+    var deleteDialog by remember { mutableStateOf(false) }
+    var logoutDialog by remember { mutableStateOf(false) }
+    var ubahDialog by remember { mutableStateOf(false) }
+
 
     val context = LocalContext.current
 
@@ -122,10 +126,7 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                     .height(56.dp),
                 onClick = {
                     if (id != null) {
-                        viewModel.update(id, fullname, phoneNumber)
-                        CoroutineScope(Dispatchers.IO).launch {
-                                dataStore.setUserId(phoneNumber)
-                        }
+                        ubahDialog = true
                     }
                 },
                 shape = RoundedCornerShape(16.dp),
@@ -144,11 +145,10 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                 modifier = Modifier
                     .height(56.dp),
                 onClick = {
-                    if (id != null)
-                        viewModel.delete(id)
-                    navController.navigate(Screen.Login.route) {
-                        popUpTo(Screen.Login.route)
+                    if (id != null) {
+                        deleteDialog = true
                     }
+
                 },
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -161,21 +161,14 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                     fontWeight = FontWeight.Bold
                 )
             }
+
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
                 modifier = Modifier
                     .height(56.dp),
                 onClick = {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        dataStore.setLoginStatus(!isLoggedIn)
-                        dataStore.setUserId("")
-
-                    }
-                    navController.navigate(Screen.Login.route) {
-                        popUpTo(Screen.Login.route)
-                    }
-
+                   logoutDialog = true
                 },
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -188,9 +181,54 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                     fontWeight = FontWeight.Bold
                 )
             }
-        }
+            if (deleteDialog) {
+                DisplayAlertDialog(
+                    openDialog = deleteDialog,
+                    text = "Anda yakin ingin Menghapus Akun?",
+                    onDismissRequest = { deleteDialog = false }) {
+                    deleteDialog = false
+                    navController.popBackStack()
+                    viewModel.delete(id)
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Login.route)
+                    }
+                }
+            }
+            if (logoutDialog) {
+                DisplayAlertDialog(
+                    openDialog = logoutDialog,
+                    text = "Anda yakin ingin keluar?",
+                    onDismissRequest = { logoutDialog = false }) {
+                    logoutDialog = false
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dataStore.setLoginStatus(!isLoggedIn)
+                        dataStore.setUserId("")
 
+                    }
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Login.route)
+                    }
+                }
+            }
+            if (ubahDialog) {
+                DisplayAlertDialog(
+                    openDialog = ubahDialog,
+                    text = "Anda yakin ingin mengubah data?",
+                    onDismissRequest = { ubahDialog = false }) {
+                    ubahDialog = false
+                    viewModel.update(id, fullname, phoneNumber)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dataStore.setUserId(phoneNumber)
+                    }
+                }
+            }
+        }
     }
+}
+
+@Composable
+fun DeleteAlert(showDialog: Boolean) {
+
 }
 
 @Preview
