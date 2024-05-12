@@ -15,6 +15,14 @@
     <string name="greetings">Hello, Nama</string>
     <string name="address">Alamat</string>
     <string name="complete_address">Gedung Asrama 5, No Kamar 20</string>
+    <string name="tambah_resep">Tambah Resep</string>
+    <string name="judul_resep">Tulis Judul Resep</string>
+    <string name="deskripsi_resep">Tulis Deskripsi Resep</string>
+    <string name="waktusaji_resep">Tulis Waktu Saji, contoh: 20 Menit</string>
+    <string name="kategori_resep_1">Hidangan Utama</string>
+    <string name="kategori_resep_2">Lauk Pauk</string>
+    <string name="kategori_resep_3">Sup dan Kuah</string>
+    <string name="kategori_resep_4">Hidangan Penutup</string>
 
 
     <string name="list_kosong">List is Empty.</string>
@@ -44,5 +52,12 @@
     <string name="pesan_hapus">Hapus Catatan ini?</string>
     <string name="tombol_hapus">Yes</string>
     <string name="tombol_batal">No</string>
+    <string name="tombol_simpan">Simpan</string>
+
+
+    <string name="tambah_error_title">Harap isi judul terlebih dahulu!</string>
+    <string name="tambah_error_desc">Harap isi deskripsi terlebih dahulu!</string>
+    <string name="tambah_error_kategori">Harap pilih kategori terlebih dahulu!</string>
+    <string name="tambah_error_servetime">Harap masukan waktu saji terlebih dahulu!</string>
 
 </resources>

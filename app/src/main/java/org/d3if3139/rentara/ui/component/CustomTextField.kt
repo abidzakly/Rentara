@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,17 +34,20 @@ import org.d3if3139.rentara.ui.theme.GrayTextField
 
 @Composable
 fun CustomTextField(
+    modifier: Modifier? = null,
+    isNumber: Boolean? = false,
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: Int,
     isPhone: Boolean? = false
 ) {
     TextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier?.fillMaxWidth()
+            ?: Modifier.fillMaxWidth(),
         value = value,
         onValueChange = { onValueChange(it) },
         placeholder = { Text(text = stringResource(id = placeholder), color = GrayIcon) },
-        singleLine = true,
+        singleLine = modifier == null,
         shape = RoundedCornerShape(16.dp),
         colors = TextFieldDefaults.colors(
             unfocusedIndicatorColor = Color.Transparent,
@@ -52,7 +56,8 @@ fun CustomTextField(
             focusedContainerColor = GrayTextField
         ),
         keyboardOptions = KeyboardOptions(
-            keyboardType = if (isPhone!!) KeyboardType.Phone else KeyboardType.Text
+            keyboardType = if (isPhone!!) KeyboardType.Phone else if (isNumber == true) KeyboardType.Number else KeyboardType.Text,
+            capitalization = KeyboardCapitalization.Sentences
         )
     )
     Spacer(modifier = Modifier.height(8.dp))

@@ -89,8 +89,7 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
         CustomTextField(
             value = fullname,
             onValueChange = { fullname = it },
-            placeholder = R.string.fullname,
-            false
+            placeholder = R.string.fullname
         )
         CustomTextField(
             value = phoneNumber,
@@ -105,21 +104,38 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                 .height(56.dp),
             onClick = {
                 isPressed = !isPressed
-                if (!isExist) {
-                    viewModel.insert(
-                        fullname,
-                        phoneNumber
-                    )
-                    navController.navigate(Screen.Login.route) {
-                        popUpTo(Screen.Login.route)
-                    }
-                } else {
-                    Toast.makeText(
+                when {
+                    fullname == "" -> Toast.makeText(
                         context,
-                        R.string.register_error,
+                        "Harap isikan nama anda terlebih dahulu!",
                         Toast.LENGTH_SHORT
                     ).show()
-                }
+                    phoneNumber == "" -> Toast.makeText(
+                        context,
+                        "Harap isikan no telp anda terlebih dahulu!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    phoneNumber.length < 11 -> Toast.makeText(
+                        context,
+                        "Masukkan minimal 11 angka!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    else -> {
+                        if (!isExist) {
+                            viewModel.insert(
+                                fullname,
+                                phoneNumber
+                            )
+                            navController.popBackStack(Screen.Login.route, inclusive = true)
+                            navController.navigate(Screen.Login.route)
+                        } else {
+                            Toast.makeText(
+                                context,
+                                R.string.register_error,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }                    }
             },
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(

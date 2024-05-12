@@ -1,6 +1,7 @@
 package org.d3if3139.rentara.ui.screen.profile
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -55,12 +56,15 @@ import org.d3if3139.rentara.util.ViewModelFactory
 
 @Composable
 fun ProfileScreen(navController: NavHostController) {
-    Scaffold(topBar = {
-        TopNav(title = R.string.back_button, navController = navController)
-    },
+    Scaffold(
+        topBar = {
+            TopNav(title = R.string.bottom_app_profile, navController = navController)
+        },
         bottomBar = {
-            BottomNav(currentRoute = Screen.Profile.route, navController = navController, id = "")
-        }) {
+            BottomNav(currentRoute = Screen.Profile.route, navController = navController)
+        },
+        containerColor = Color.White
+    ) {
         ScreenContent(modifier = Modifier.padding(it), navController)
     }
 }
@@ -110,8 +114,7 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
         CustomTextField(
             value = fullname,
             onValueChange = { fullname = it },
-            placeholder = R.string.fullname,
-            false
+            placeholder = R.string.fullname
         )
         CustomTextField(
             value = phoneNumber,
@@ -168,7 +171,7 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                 modifier = Modifier
                     .height(56.dp),
                 onClick = {
-                   logoutDialog = true
+                    logoutDialog = true
                 },
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -186,12 +189,15 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                     openDialog = deleteDialog,
                     text = "Anda yakin ingin Menghapus Akun?",
                     onDismissRequest = { deleteDialog = false }) {
-                    deleteDialog = false
-                    navController.popBackStack()
+                    Toast.makeText(
+                        context,
+                        "Akun telah terhapus.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     viewModel.delete(id)
-                    navController.navigate(Screen.Login.route) {
-                        popUpTo(Screen.Login.route)
-                    }
+                    navController.popBackStack(Screen.Login.route, inclusive = true)
+                    navController.navigate(Screen.Login.route)
+                    deleteDialog = false
                 }
             }
             if (logoutDialog) {
@@ -199,15 +205,18 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                     openDialog = logoutDialog,
                     text = "Anda yakin ingin keluar?",
                     onDismissRequest = { logoutDialog = false }) {
-                    logoutDialog = false
                     CoroutineScope(Dispatchers.IO).launch {
                         dataStore.setLoginStatus(!isLoggedIn)
                         dataStore.setUserId("")
-
                     }
-                    navController.navigate(Screen.Login.route) {
-                        popUpTo(Screen.Login.route)
-                    }
+                    Toast.makeText(
+                        context,
+                        "Berhasil keluar.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    navController.popBackStack(Screen.Login.route, inclusive = true)
+                    navController.navigate(Screen.Login.route)
+                    logoutDialog = false
                 }
             }
             if (ubahDialog) {
@@ -215,11 +224,16 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
                     openDialog = ubahDialog,
                     text = "Anda yakin ingin mengubah data?",
                     onDismissRequest = { ubahDialog = false }) {
-                    ubahDialog = false
                     viewModel.update(id, fullname, phoneNumber)
                     CoroutineScope(Dispatchers.IO).launch {
                         dataStore.setUserId(phoneNumber)
                     }
+                    Toast.makeText(
+                        context,
+                        "Sukses",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    ubahDialog = false
                 }
             }
         }

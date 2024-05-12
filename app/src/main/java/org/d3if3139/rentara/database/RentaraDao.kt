@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import org.d3if3139.rentara.model.Recipe
 import org.d3if3139.rentara.model.User
 
@@ -40,12 +41,22 @@ interface RentaraDao {
 
     @Query("SELECT * FROM recipes ORDER BY judul ASC")
     fun getAllRecipe(): Flow<List<Recipe>>
+//    Favorites
+    @Query("SELECT * FROM recipes WHERE isFavorite = 1 ORDER BY tanggal DESC")
+    fun getFavoritesRecipe(): Flow<List<Recipe>>
+
+    @Query("UPDATE recipes SET isFavorite = :isFavorite WHERE id = :id")
+    suspend fun updateFavorites(isFavorite: Boolean, id: Long)
 
     @Query("SELECT * FROM recipes WHERE id = :id")
     suspend fun getRecipeById(id: Long): Recipe?
 
-    @Query("SELECT * FROM recipes WHERE judul = :title")
-    suspend fun getRecipeByTitle(title: String): Recipe?
+    @Query("SELECT * FROM recipes\n" +
+            "WHERE LOWER(judul) LIKE '%' || LOWER(:any) || '%'\n"+
+            "OR LOWER(deskripsi) LIKE '%' || LOWER(:any) || '%'\n" +
+            "OR LOWER(serveTime) LIKE '%' || LOWER(:any) || '%'\n" +
+            "OR LOWER(kategori) LIKE '%' || LOWER(:any) || '%' ORDER BY tanggal DESC")
+    fun getRecipeByAny(any: String): Flow<List<Recipe>>
 
     @Query("DELETE FROM recipes WHERE id = :id")
     suspend fun deleteRecipeById(id: Long)

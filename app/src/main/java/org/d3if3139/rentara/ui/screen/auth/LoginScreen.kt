@@ -92,9 +92,8 @@ private fun ScreenContent(modifier: Modifier, navController: NavHostController) 
         if (isExist) {
             dataStore.setLoginStatus(!isLoggedIn)
             dataStore.setUserId(phoneNumber)
-            navController.navigate(Screen.Dashboard.route) {
-                popUpTo(Screen.Dashboard.route)
-            }
+            navController.popBackStack(Screen.Dashboard.route, inclusive = true)
+            navController.navigate(Screen.Dashboard.route)
         } else {
             if (isPressed) {
                 Toast.makeText(

@@ -18,5 +18,5 @@ val DarkBlueDarker = Color(0xFF003684)
 val GrayText = Color(0xFF707070)
 val RentaraPink = Color(0xFFE45261)
 val RentaraPinkDarker = Color(0xFF9B3741)
-val RentaraYellow = Color(0xFFE0B448)
+val RentaraYellow = Color(0xFFFFCE54)
 

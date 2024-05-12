@@ -45,13 +45,8 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
         startDestination = if (loginStatus) Screen.Dashboard.route else Screen.Login.route
     ) {
         composable(
-            route = Screen.Dashboard.route,
-            arguments = listOf(
-                navArgument(KEY_ID_DATA) {
-                    type = NavType.StringType
-                })
+            route = Screen.Dashboard.route
         ) {
-            val id = it.arguments?.getString(KEY_ID_DATA)
             DashboardScreen(navController)
         }
         composable(route = Screen.Login.route) {
@@ -61,14 +56,9 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
             RegisterScreen(navController)
         }
         composable(
-            route = Screen.Favorite.route,
-            arguments = listOf(
-                navArgument(KEY_ID_DATA) {
-                    type = NavType.StringType
-                })
+            route = Screen.Favorite.route
         ) {
-            val id = it.arguments?.getString(KEY_ID_DATA)
-            FavoriteScreen(navController, id)
+            FavoriteScreen(navController)
         }
         composable(route = Screen.NewPost.route) {
             PostScreen(navController)
@@ -82,7 +72,8 @@ fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
                 navArgument(KEY_ID_DATA) {
                     type = NavType.LongType
                 }
-            )) {
+            )
+        ) {
             val id = it.arguments?.getLong(KEY_ID_DATA)
             PostScreen(navController, id)
         }

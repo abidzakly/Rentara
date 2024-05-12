@@ -9,9 +9,8 @@ data class Recipe(
     val id: Long = 0L,
     val judul: String,
     val deskripsi: String,
-    val instruksi: String,
-    val gambar: Int,
     val kategori: String,
     val serveTime: String,
-    val tanggal: String
+    val tanggal: String,
+    val isFavorite: Boolean? = false
 )

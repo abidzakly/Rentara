@@ -33,7 +33,7 @@ import org.d3if3139.rentara.ui.theme.DarkBlueDarker
 import org.d3if3139.rentara.ui.theme.GrayIco
 
 @Composable
-fun BottomNav(currentRoute: String, navController: NavHostController, id: String) {
+fun BottomNav(currentRoute: String, navController: NavHostController) {
     BottomAppBar(
         modifier = Modifier
             .height(72.dp)
@@ -49,9 +49,8 @@ fun BottomNav(currentRoute: String, navController: NavHostController, id: String
                 title = R.string.bottom_app_beranda,
                 isSelected = currentRoute == Screen.Dashboard.route
             ) {
-                navController.navigate(Screen.Dashboard.route) {
-                   popUpTo(Screen.Dashboard.route)
-                }
+                navController.popBackStack(Screen.Dashboard.route, inclusive = true)
+                navController.navigate(Screen.Dashboard.route)
             }
             BottomNavButton(
                 icon = R.drawable.baseline_favorite_28,
@@ -68,7 +67,7 @@ fun BottomNav(currentRoute: String, navController: NavHostController, id: String
                 isSelected = currentRoute == Screen.Profile.route
             ) {
                 navController.navigate(Screen.Profile.route) {
-                    popUpTo(Screen.Login.route)
+                    popUpTo(Screen.Dashboard.route)
                 }
             }
         }
@@ -113,5 +112,5 @@ fun BottomNavButton(icon: Int, title: Int, isSelected: Boolean, onClick: () -> U
 @Preview
 @Composable
 private fun BottomNavPrev() {
-    BottomNav(currentRoute = Screen.Dashboard.route, navController = rememberNavController(), "")
+    BottomNav(currentRoute = Screen.Dashboard.route, navController = rememberNavController())
 }
